@@ -31,6 +31,7 @@ class MapSampleState extends State<MapSample> {
   void initstate() {
     super.initState();
     showmapfunc();
+    _loadMapStyles();
   }
 
   var mapthemdata;
@@ -42,7 +43,6 @@ class MapSampleState extends State<MapSample> {
     Future.delayed(Duration(seconds: 1)).whenComplete(() {
       setState(() {
         showmap = true;
-        print("ASD");
       });
     });
   }
@@ -55,9 +55,10 @@ class MapSampleState extends State<MapSample> {
         children: [
           showmap
               ? GoogleMap(
-                  mapType: MapType.hybrid,
+                  // mapType: MapType.hybrid,
                   initialCameraPosition: _kGooglePlex,
                   onMapCreated: (GoogleMapController controller) {
+                    controller.setMapStyle(mapthemdata);
                     _controller.complete(controller);
                   },
                 )
